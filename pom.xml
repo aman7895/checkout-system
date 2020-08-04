@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<packing.type>jar</packing.type>
 	</properties>
 
 	<dependencies>
@@ -27,10 +28,28 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -49,7 +68,46 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.2.8.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>5.2.8.RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <version>2.0.0-beta.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
