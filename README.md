@@ -6,7 +6,7 @@ The current version of this system has a number of features available for the st
 
 #### project-specifications:
 
-    - The system was created using Spring Boot, JPA (Spring Data) and a MySQL DB.
+    - The system was created using Spring Boot 2, JPA (Spring Data), Java 8 and a MySQL DB.
     - All the operations are supported through the RESTful web service.
     - The software development was done using a Test-driven approach.
     - To enhance the API usage and understanding, a Swagger UI is available with the application. (`/swagger-ui.html`)
