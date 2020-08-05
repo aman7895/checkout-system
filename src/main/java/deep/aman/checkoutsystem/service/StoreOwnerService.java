@@ -9,6 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/*
+This service is implemented for the store owner. It helps to get all the current products,
+create a new product, update a product and remove a product. It also gives the store
+owner the choice of adding a free item to any product or giving a discount in the form of
+Buy X get Y % discount on Z. Here the X and Z can be same as well, while the Y is the
+range of 0-100 percent discount. The discount item id, discount percentage can be stored
+with the product along with a Discount Type to later confirm that the discount applies.
+ */
+
 @Service
 @Slf4j
 public class StoreOwnerService {

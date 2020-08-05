@@ -16,7 +16,7 @@ class BasketTest {
     Product p4;
 
     @BeforeEach
-    void setUpProductsHereToUse() {
+    public void setUpProductsHereToUse() {
         p1 = new Product();
         p1.setId(1L);
         p1.setName("Samsung");

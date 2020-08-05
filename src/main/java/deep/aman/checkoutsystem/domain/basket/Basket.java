@@ -30,8 +30,10 @@ public class Basket {
         productMap.putIfAbsent(product.getId(), product);
     }
 
+    // Adding products to a map
     public double getCost() {
         productMap.forEach((key, product) -> {
+            // Checking is the deal type is valid
             if (product.getDiscountType() != null && product.getDiscountType().equals(DiscountType.BuyXGetYOnSecond)) {
                 discount.putIfAbsent(product.getDiscountProductId(), product.getDiscount());
                 discQuantity.put(product.getDiscountProductId(),
@@ -43,11 +45,14 @@ public class Basket {
         Long id;
         Product product;
 
+        // Looping through products
         for (Map.Entry<Long, Product> itr : productMap.entrySet()) {
             id = itr.getKey();
             product = itr.getValue();
             double discountQuantity = 0;
+            // If there is a discount product linked to the selected product
             if (discount.containsKey(id)) {
+                // If the discount is on the product itself
                 if(product.getDiscountProductId() == id) {
                     discountQuantity = Math.floor(productQuantity.get(id) / 2);
                 }

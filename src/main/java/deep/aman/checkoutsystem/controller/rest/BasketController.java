@@ -1,10 +1,15 @@
 package deep.aman.checkoutsystem.controller.rest;
 
-import deep.aman.checkoutsystem.service.BasketService;
 import deep.aman.checkoutsystem.domain.basket.Basket;
+import deep.aman.checkoutsystem.service.BasketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+/*
+This is a controller used by the user to work on their basket.
+It connects to the BasketService where the logic is implemented.
+ */
 
 @RestController
 @Slf4j
@@ -28,6 +33,10 @@ public class BasketController {
                                     @PathVariable("productId") Long productId,
                                     @PathVariable("quantity") Long quantity) {
 
-        basketService.addProductToBasket(basketId, productId, quantity);
+        try {
+            basketService.addProductToBasket(basketId, productId, quantity);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
 }

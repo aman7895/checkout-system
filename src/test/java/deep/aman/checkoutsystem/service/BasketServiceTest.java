@@ -9,13 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-class BasketServiceTest {
+public class BasketServiceTest {
 
     @Mock
     ProductRepository productRepository;
@@ -26,47 +23,52 @@ class BasketServiceTest {
     Basket basket;
     String id;
     Product p1;
+    Product p2;
     Long quantity;
 
-    @Mock
-    HashMap<String, Basket> basketHashMap;
-
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         id = "basket-1";
+
         p1 = new Product();
         p1.setId(1L);
+        p1.setQuantity(1L);
+        p1.setFreeItemId(0L);
+
+        p2 = new Product();
+        p2.setId(2L);
+        p2.setQuantity(1L);
+        p2.setFreeItemId(1L);
+
         quantity = 1L;
 
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void getBackTheBasketIdentifier() {
+    public void getNullIfTheRightBasketMapIsNotUsed() {
         basket = new Basket();
-        when(basketHashMap.get(id)).thenReturn(basket);
-        assertEquals(basket, basketService.getBasketId(id));
-    }
-
-    @Test
-    void getNullIfTheRightBasketMapIsNotUsed() {
-        basket = new Basket();
-        HashMap basketHashMap = new HashMap();
-        basketHashMap.put(id, basket);
         assertNotEquals(basket, basketService.getBasketId(id));
     }
 
     @Test
-    void createANewIdForEveryBasket() {
-        when(basketService.createBasket(basket)).thenReturn(id);
-        assertEquals(id, basketService.createBasket(basket));
+    public void getBackTheBasketIdentifier() {
+        basket = new Basket();
+        basketService.getBasketHashMap().put(id, basket);
+        assertEquals(basket, basketService.getBasketId(id));
     }
 
     @Test
-    void checkIfProductIsNotAddedToBasketIfItDoesntExist() {
-        when(basketHashMap.containsKey(id)).thenReturn(false);
-        RuntimeException thrown = assertThrows(
-                RuntimeException.class,
+    public void createANewIdForEveryBasketAndCheckItsNotRepeated() {
+        basket = new Basket();
+        basketService.getBasketHashMap().put(id, basket);
+        assertNotEquals(id, basketService.createBasket(basket));
+    }
+
+    @Test
+    public void checkIfProductIsNotAddedToBasketIfItDoesntExistThrowsTheRightException() {
+        Exception thrown = assertThrows(
+                Exception.class,
                 () -> basketService.addProductToBasket(id, p1.getId(), quantity),
                 "Basket ID doesn't exist: " + id
         );
@@ -74,17 +76,55 @@ class BasketServiceTest {
     }
 
     @Test
-    void checkIfProductBeingAddedToBasketDoesntExist() {
-        Long productId = p1.getId();
-        when(basketHashMap.containsKey(id)).thenReturn(true);
-        when(productRepository.findById(productId)).thenReturn(java.util.Optional.ofNullable(p1));
-        when(productRepository.findById(productId).isPresent()).thenReturn(false);
-        RuntimeException thrown = assertThrows(
-                RuntimeException.class,
+    public void checkIfProductBeingAddedToBasketDoesntExistThrowsTheRightException() {
+        basket = new Basket();
+        basketService.getBasketHashMap().put(id, basket);
+        Exception thrown = assertThrows(
+                Exception.class,
                 () -> basketService.addProductToBasket(id, p1.getId(), quantity),
-                "Product ID doesn't exist: " + productId
+                "Product ID doesn't exist: " + p1.getId()
         );
-        assertTrue(thrown.getMessage().equals("Product ID doesn't exist: " + productId));
+        assertTrue(thrown.getMessage().equals("Product ID doesn't exist: " + p1.getId()));
+    }
+
+    @Test
+    public void checkIfProductToBeAddedQuantityIsGreaterThanTotalProductQuantityThrowsTheRightException() {
+        basket = new Basket();
+        basketService.getBasketHashMap().put(id, basket);
+        when(productRepository.findById(p1.getId())).thenReturn(java.util.Optional.ofNullable(p1));
+        when(productRepository.findById(p1.getId())).thenReturn(java.util.Optional.ofNullable(p1));
+
+        Exception thrown = assertThrows(
+                Exception.class,
+                () -> basketService.addProductToBasket(id, p1.getId(), 2L),
+                "Not enough quantity for product ID: " + p1.getId()
+        );
+        assertTrue(thrown.getMessage().equals("Not enough quantity for product ID: " + p1.getId()));
+    }
+
+    @Test
+    public void checkIfProductCanBeBoughtInTheDesiredQuantity() throws Exception {
+        basket = new Basket();
+        basketService.getBasketHashMap().put(id, basket);
+        when(productRepository.findById(p1.getId())).thenReturn(java.util.Optional.ofNullable(p1));
+        when(productRepository.findById(p1.getId())).thenReturn(java.util.Optional.ofNullable(p1));
+        when(productRepository.save(p1)).thenReturn(p1);
+        basketService.addProductToBasket(id, p1.getId(), quantity);
+        verify(productRepository, times(1)).save(p1);
+    }
+
+    @Test
+    public void checkIfProductHasAFreeItemIdAndItsBeingAdded() throws Exception {
+        basket = new Basket();
+        basketService.getBasketHashMap().put(id, basket);
+        when(productRepository.findById(p2.getId())).thenReturn(java.util.Optional.ofNullable(p2));
+        when(productRepository.findById(p2.getId())).thenReturn(java.util.Optional.ofNullable(p2));
+        when(productRepository.save(p2)).thenReturn(p2);
+        when(productRepository.findById(p2.getFreeItemId())).thenReturn(java.util.Optional.ofNullable(p1));
+        when(productRepository.save(p1)).thenReturn(p1);
+        basketService.addProductToBasket(id, p2.getId(), quantity);
+        verify(productRepository, times(1)).save(p2);
+        verify(productRepository, times(1)).save(p1);
     }
 
 

@@ -3,14 +3,23 @@ package deep.aman.checkoutsystem.service;
 import deep.aman.checkoutsystem.domain.basket.Basket;
 import deep.aman.checkoutsystem.domain.product.Product;
 import deep.aman.checkoutsystem.infrastructure.repository.ProductRepository;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.RuntimeErrorException;
 import java.util.HashMap;
 import java.util.UUID;
 
+/*
+This service is implemented for user basket. It maintains a basketHashMap
+that contains all the basket. The functions here help to create a new
+basket Id, return the basket and add product to the basket. The basket
+object does the cost calculation which can be seen when createBasket
+method is called.
+ */
+
+@Data
 @Service
 @Slf4j
 public class BasketService {
@@ -30,7 +39,7 @@ public class BasketService {
         return basketHashMap.get(basketId);
     }
 
-    public void addProductToBasket(String basketId, Long productId, Long quantity) {
+    public void addProductToBasket(String basketId, Long productId, Long quantity) throws Exception {
         if (basketHashMap.containsKey(basketId)) {
             if (productRepository.findById(productId).isPresent()) {
                 Product currentProduct = productRepository.findById(productId).get();
@@ -55,14 +64,13 @@ public class BasketService {
                     }
 
                 } else {
-                    throw new RuntimeException("Not enough quantity for product ID: " + productId);
+                    throw new Exception("Not enough quantity for product ID: " + productId);
                 }
             } else {
-                throw new RuntimeException("Product ID doesn't exist: " + productId);
+                throw new Exception("Product ID doesn't exist: " + productId);
             }
-        }
-        else {
-            throw new RuntimeException("Basket ID doesn't exist: " + basketId);
+        } else {
+            throw new Exception("Basket ID doesn't exist: " + basketId);
         }
     }
 

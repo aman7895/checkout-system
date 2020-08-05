@@ -1,12 +1,17 @@
 package deep.aman.checkoutsystem.controller.rest;
 
-import deep.aman.checkoutsystem.service.StoreOwnerService;
 import deep.aman.checkoutsystem.domain.product.Product;
+import deep.aman.checkoutsystem.service.StoreOwnerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/*
+This is a controller used by the store owner to make any changes.
+It connects to the StoreOwnerService where the logic is implemented.
+ */
 
 @Slf4j
 @RestController

@@ -2,8 +2,8 @@ package deep.aman.checkoutsystem.service;
 
 import deep.aman.checkoutsystem.domain.product.Product;
 import deep.aman.checkoutsystem.infrastructure.repository.ProductRepository;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -28,7 +28,7 @@ public class StoreOwnerServiceTest {
     @InjectMocks
     StoreOwnerService storeOwnerService;
 
-    @Before
+    @BeforeEach
     public void setUpProductsHereToUse() {
         p1 = new Product();
         p1.setId(1L);

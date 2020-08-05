@@ -25,15 +25,62 @@ Path | Method | Role | Explanation
 `/basket/{basketId}` | `GET` | User | this gives the basket of the user with all the products, free items and costs with deals applied
 `/basket/addProduct/{basketId}/{productId}/{quantity}` | `PUT` | User | adds a product to users basket based on their basked-id, the product they wish to add and it's quantity
  
+#### build-and-run:
+
+- Building and checking for correctness:
+  ```$xslt
+  run the following maven command from the project folder:
+  $mvn clean install
+  ```
+  This command will run through the entire Maven Lifecycle; install all the dependencies, compile the program and run the tests automatically to produce a Build success/failure. Then it will be packaged into a `jar` for execution.
+- Running from Spring Boot Maven Plugin:
+  ```$xslt
+  run the following maven command from the project folder
+  $mvn spring-boot:run
+  ```
+- Running from executable jar file:
+  ```$xslt
+  run the command from the project folder
+  $mvn clean install
+  
+  run the following java command from the project folder
+  $java -jar target/checkout-system-0.0.1-SNAPSHOT.jar
+  ```
+
+#### future-works:
+
+A few things to be worked on next:
+- The current implementation of the user basket is done using a global `HashMap` which is destroyed if the  application is stopped. Instead, the state of the basket can be persisted.
+- Adding more features for the store owner/user for a better experience. Ex: Authorizing the user and store owner for their perspective roles.
 
 
+##### supplementary-information:
 
+- package-build snapshot:
+    ```$xslt
+    [INFO] -------------------------------------------------------
+    [INFO]  T E S T S
+    [INFO] -------------------------------------------------------
+    [INFO] Running deep.aman.checkoutsystem.domain.basket.BasketTest
+    [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.077 s - in deep.aman.checkoutsystem.domain.basket.BasketTest
+    [INFO] Running deep.aman.checkoutsystem.service.BasketServiceTest
+    [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.356 s - in deep.aman.checkoutsystem.service.BasketServiceTest
+    [INFO] Running deep.aman.checkoutsystem.service.StoreOwnerServiceTest
+    [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s - in deep.aman.checkoutsystem.service.StoreOwnerServiceTest
+    [INFO] 
+    [INFO] Results:
+    [INFO] 
+    [INFO] Tests run: 22, Failures: 0, Errors: 0, Skipped: 0
+    [INFO] 
+    [INFO] ------------------------------------------------------------------------
+    [INFO] BUILD SUCCESS
+    [INFO] ------------------------------------------------------------------------
+    [INFO] Total time: 7.283 s
+    [INFO] Finished at: 2020-08-05T13:21:25+08:00
+    [INFO] Final Memory: 15M/36M
+    [INFO] ------------------------------------------------------------------------
+    ```
 
-
-
-
-
-
-
-
-mvn clean install - will create a jar with automated tests and install the dependencies
+- Swagger UI:
+    
+    ![Swagger UI](/src/main/resources/static/swagger-ui.PNG)
