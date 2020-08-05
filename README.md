@@ -20,7 +20,7 @@ Path | Method | Role | Explanation
 `/createProduct` | `POST` | Store Owner | creates a new product using the product object and saves it to DB
 `/product/removeProduct/{id}` | `DELETE` | Store Owner | removes the product from the DB using the product-id
 `/products` | `GET` | Store Owner | gets all the products from the DB in the form of the product object
-`/updateProduct/{id}` | `PUT` | Store Owner | updates a product using the product-id
+`/updateProduct/{id}` | `PUT` | Store Owner | updates a product using the product-id to change the product details and add a free item/discount deal for it (buy x get y% off on z)
 `/basket/createBasket` | `POST` | User | creates a new basket for the user and returns the unique basket-id
 `/basket/{basketId}` | `GET` | User | this gives the basket of the user with all the products, free items and costs with deals applied
 `/basket/addProduct/{basketId}/{productId}/{quantity}` | `PUT` | User | adds a product to users basket based on their basked-id, the product they wish to add and it's quantity
