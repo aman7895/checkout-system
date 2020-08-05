@@ -86,5 +86,5 @@ A few things to be worked on next:
     ![Swagger UI](/src/main/resources/static/swagger-ui.PNG)
 
 - Test coverage:
-    
+    Covered 78% of the total lines.
     ![Test coverage](/src/main/resources/static/testCoverage.jpeg)
