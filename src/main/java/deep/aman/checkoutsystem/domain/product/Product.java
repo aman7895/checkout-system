@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "products_test_1")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue
