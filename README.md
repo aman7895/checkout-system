@@ -10,6 +10,7 @@ The current version of this system has a number of features available for the st
     - All the operations are supported through the RESTful web service.
     - The software development was done using a Test-driven approach.
     - To enhance the API usage and understanding, a Swagger UI is available with the application. (`/swagger-ui.html`)
+    - The application runs on http://localhost:8080/
 
 #### usage:
 
@@ -56,7 +57,7 @@ A few things to be worked on next:
 
 ##### supplementary-information:
 
-- package-build snapshot:
+- `mvn clean install` snapshot:
     ```$xslt
     [INFO] -------------------------------------------------------
     [INFO]  T E S T S
