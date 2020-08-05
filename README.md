@@ -84,3 +84,7 @@ A few things to be worked on next:
 - Swagger UI:
     
     ![Swagger UI](/src/main/resources/static/swagger-ui.PNG)
+
+- Test coverage:
+    
+    ![Test coverage](/src/main/resources/static/testCoverage.jpeg)
